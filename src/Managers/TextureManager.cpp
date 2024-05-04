@@ -5,6 +5,23 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+#ifdef __unix__
+    const char* colorShaderVertexPath = "../shaders/ColorVertexShader.glsl";
+    const char* colorShaderFragmentPath = "../shaders/ColorFragmentShader.glsl";
+    const char* imageShaderVertexPath = "../shaders/ImageVertexShader.glsl";
+    const char* imageShaderFragmentPath = "../shaders/ImageFragmentShader.glsl";
+#elif __aarch64__ || __APPLE__
+    const char* colorShaderVertexPath = "../shaders/ColorVertexShader.glsl";
+    const char* colorShaderFragmentPath = "../shaders/ColorFragmentShader.glsl";
+    const char* imageShaderVertexPath = "../shaders/ImageVertexShader.glsl";
+    const char* imageShaderFragmentPath = "../shaders/ImageFragmentShader.glsl";
+#elif defined(_WIN32) || defined(_WIN64)
+    const char* colorShaderVertexPath = "../../../shaders/ColorVertexShader.glsl";
+    const char* colorShaderFragmentPath = "../../../shaders/ColorFragmentShader.glsl";
+    const char* imageShaderVertexPath = "../../../shaders/ImageVertexShader.glsl";
+    const char* imageShaderFragmentPath = "../../../shaders/ImageFragmentShader.glsl";
+#endif
+
 std::pair<GLuint, GLint> TextureManager::LoadTexture(Texture* texture)
 {
     switch (texture->GetType())
@@ -22,8 +39,8 @@ std::pair<GLuint, GLint> TextureManager::LoadTexture(Texture* texture)
 
 std::pair<GLuint, GLint> TextureManager::LoadColorTexture(ColorTexture* texture)
 {
-    std::string vertexShaderSource = ReadFile("../shaders/ColorVertexShader.glsl");
-    std::string fragmentShaderSource = ReadFile("../shaders/ColorFragmentShader.glsl");;
+    std::string vertexShaderSource = ReadFile(colorShaderVertexPath);
+    std::string fragmentShaderSource = ReadFile(colorShaderFragmentPath);
 
     GLuint vertexShader = CompileShader(GL_VERTEX_SHADER, vertexShaderSource);
     GLuint fragmentShader = CompileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
@@ -69,8 +86,8 @@ std::pair<GLuint, GLint> TextureManager::LoadImageTexture(ImageTexture* texture)
     texture->SetTextureId(textureId);
     stbi_image_free(data);
 
-    std::string vertexShaderSource = ReadFile("../shaders/ImageVertexShader.glsl");
-    std::string fragmentShaderSource = ReadFile("../shaders/ImageFragmentShader.glsl");
+    std::string vertexShaderSource = ReadFile(imageShaderVertexPath);
+    std::string fragmentShaderSource = ReadFile(imageShaderFragmentPath);
 
     GLuint vertexShader = CompileShader(GL_VERTEX_SHADER, vertexShaderSource);
     GLuint fragmentShader = CompileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
