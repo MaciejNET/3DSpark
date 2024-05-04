@@ -1,0 +1,8 @@
+cmake-build-debug/
+.idea/
+.vs/
+out/
+.DS_Store
+dependencies/.DS_Store
+include/.DS_Store
+src/.DS_Store
