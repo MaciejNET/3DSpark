@@ -10,7 +10,7 @@
 #include "../Texture/ColorTexture.h"
 #include "../Managers/TextureManager.h"
 
-#ifdef defined(_WIN32) || defined(_WIN64)
+#if defined(_WIN32) || defined(_WIN64)
     #define M_PI 3.14
 #endif
 
