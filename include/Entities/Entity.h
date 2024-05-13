@@ -19,26 +19,25 @@ class Entity
 public:
     Entity()
     {
-        _texture = new ColorTexture(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+        auto texture = new ColorTexture(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+        SetTexture(texture);
     }
     virtual ~Entity() { delete _texture; };
 
     virtual void Draw()
     {
-        auto [shaderProgram, uniformLocation] = TextureManager::LoadTexture(_texture);
-        _shaderProgram = shaderProgram;
-        glUseProgram(shaderProgram);
+        glUseProgram(_shaderProgram);
 
         switch (_texture->GetType())
         {
             case TextureType::COLOR:
-                glUniform4fv(uniformLocation, 1, &dynamic_cast<ColorTexture*>(_texture)->GetColor()[0]);
+                glUniform4fv(_uniformLocation, 1, &dynamic_cast<ColorTexture*>(_texture)->GetColor()[0]);
                 break;
 
             case TextureType::IMAGE:
                 glActiveTexture(GL_TEXTURE0);
                 glBindTexture(GL_TEXTURE_2D, dynamic_cast<ImageTexture*>(_texture)->GetTextureId());
-                glUniform1i(uniformLocation, 0);
+                glUniform1i(_uniformLocation, 0);
                 break;
 
             default:
@@ -55,6 +54,7 @@ public:
     {
         delete _texture;
         _texture = texture;
+        std::tie(_shaderProgram, _uniformLocation) = TextureManager::LoadTexture(_texture);
     };
 
     void Translate(const glm::vec3& translation) { _position += translation; UpdateModelMatrix(); };
@@ -79,6 +79,7 @@ protected:
     Texture* _texture{};
     glm::mat4 _modelMatrix{1.0f};
     GLuint _shaderProgram{};
+    GLint _uniformLocation{};
 };
 
 #endif //INC_3DSPARK_ENTITY_H
