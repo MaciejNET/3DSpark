@@ -17,7 +17,7 @@ const std::string imageName = "image2.jpeg";
 
 int main()
 {
-    Engine engine(800, 600, "3DSpark");
+    Engine engine(1280, 960, "3DSpark");
     engine.TurnOffCursor();
 
     RectangularEntity rectangularEntity;
@@ -39,10 +39,16 @@ int main()
     coneEntity.SetTexture(new ColorTexture(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)));
     coneEntity.SetTexture(new ImageTexture(imageTexturePath));
 
+    RectangularEntity bottom;
+    bottom.SetTexture(new ColorTexture(glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)));
+    bottom.Translate(glm::vec3(0.0f, -1.0f, 0.0f));
+    bottom.Scale(glm::vec3(15.0f, 0.1f, 15.0f));
+
     engine.AddEntityToRenderer(&rectangularEntity);
     engine.AddEntityToRenderer(&sphereEntity);
     engine.AddEntityToRenderer(&cylinderEntity);
     engine.AddEntityToRenderer(&coneEntity);
+    engine.AddEntityToRenderer(&bottom);
 
     engine.Run();
     return 0;
