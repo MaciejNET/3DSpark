@@ -23,22 +23,25 @@ int main()
     RectangularEntity rectangularEntity;
     rectangularEntity.SetTexture(new ColorTexture(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)));
     rectangularEntity.SetTexture(new ImageTexture(imageTexturePath));
+    rectangularEntity.Translate(glm::vec3(2.5f, 0.0f, 0.0f));
 
     SphereEntity sphereEntity;
     sphereEntity.SetTexture(new ColorTexture(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)));
     sphereEntity.SetTexture(new ImageTexture(imageTexturePath));
+    sphereEntity.Translate(glm::vec3(-2.5f, 0.0f, 0.0f));
 
     CylinderEntity cylinderEntity;
     cylinderEntity.SetTexture(new ColorTexture(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)));
     cylinderEntity.SetTexture(new ImageTexture(imageTexturePath));
+    cylinderEntity.Translate(glm::vec3(0.0f, 0.0f, 2.5f));
 
     ConeEntity coneEntity;
     coneEntity.SetTexture(new ColorTexture(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)));
     coneEntity.SetTexture(new ImageTexture(imageTexturePath));
 
-    //engine.AddEntityToRenderer(&rectangularEntity);
-    //engine.AddEntityToRenderer(&sphereEntity);
-    //engine.AddEntityToRenderer(&cylinderEntity);
+    engine.AddEntityToRenderer(&rectangularEntity);
+    engine.AddEntityToRenderer(&sphereEntity);
+    engine.AddEntityToRenderer(&cylinderEntity);
     engine.AddEntityToRenderer(&coneEntity);
 
     engine.Run();
