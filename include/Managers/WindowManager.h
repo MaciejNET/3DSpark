@@ -18,12 +18,16 @@ public:
     static void Initialize(int width = 1024, int height = 768, const char* title = "Window");
     static void Cleanup();
     static GLFWwindow* GetWindow();
+    static int GetWidth();
+    static int GetHeight();
     static void SetResolution(int width, int height);
     static void SetTitle(const char* title);
     static void ToggleFullscreen();
     static void ToggleWindowed();
     static void ClearScreen();
     static void SetClearColor(float r, float g, float b, float a);
+    static void TurnOnCursor();
+    static void TurnOffCursor();
 
 private:
     static void FramebufferSizeCallback(GLFWwindow* window, int width, int height);

@@ -28,6 +28,12 @@ public:
     {
         glUseProgram(_shaderProgram);
 
+        GLint viewLoc = glGetUniformLocation(_shaderProgram, "view");
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(_viewMatrix));
+
+        GLint projLoc = glGetUniformLocation(_shaderProgram, "projection");
+        glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(_projectionMatrix));
+
         switch (_texture->GetType())
         {
             case TextureType::COLOR:
@@ -57,6 +63,12 @@ public:
         std::tie(_shaderProgram, _uniformLocation) = TextureManager::LoadTexture(_texture);
     };
 
+    void SetCameraMatrices(const glm::mat4& view, const glm::mat4& projection)
+    {
+        _viewMatrix = view;
+        _projectionMatrix = projection;
+    }
+
     void Translate(const glm::vec3& translation) { _position += translation; UpdateModelMatrix(); };
     void Rotate(const glm::vec3& axis, float angle) { _rotation += glm::degrees(axis * angle); UpdateModelMatrix(); };
     void Scale(const glm::vec3& scale) { _scale *= scale; UpdateModelMatrix(); };
@@ -80,6 +92,8 @@ protected:
     glm::mat4 _modelMatrix{1.0f};
     GLuint _shaderProgram{};
     GLint _uniformLocation{};
+    glm::mat4 _viewMatrix{1.0f};
+    glm::mat4 _projectionMatrix{1.0f};
 };
 
 #endif //INC_3DSPARK_ENTITY_H

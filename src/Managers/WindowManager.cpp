@@ -82,6 +82,20 @@ void WindowManager::Cleanup()
     glfwTerminate();
 }
 
+int WindowManager::GetWidth()
+{
+    int width, height;
+    glfwGetWindowSize(_window.get(), &width, &height);
+    return width;
+}
+
+int WindowManager::GetHeight()
+{
+    int width, height;
+    glfwGetWindowSize(_window.get(), &width, &height);
+    return height;
+}
+
 void WindowManager::SetResolution(int width, int height) 
 {
     if (_window) 
@@ -137,4 +151,14 @@ void WindowManager::SetClearColor(float r, float g, float b, float a)
     _clearColor[1] = g;
     _clearColor[2] = b;
     _clearColor[3] = a;
+}
+
+void WindowManager::TurnOnCursor()
+{
+    glfwSetInputMode(_window.get(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+}
+
+void WindowManager::TurnOffCursor()
+{
+    glfwSetInputMode(_window.get(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }

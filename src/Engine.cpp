@@ -90,3 +90,13 @@ void Engine::ClearEntitiesFromRenderer()
 {
     _renderer->ClearEntities();
 }
+
+void Engine::TurnOnCursor()
+{
+    WindowManager::TurnOnCursor();
+}
+
+void Engine::TurnOffCursor()
+{
+    WindowManager::TurnOffCursor();
+}

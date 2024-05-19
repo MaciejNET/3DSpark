@@ -18,6 +18,7 @@ const std::string imageName = "image2.jpeg";
 int main()
 {
     Engine engine(800, 600, "3DSpark");
+    engine.TurnOffCursor();
 
     RectangularEntity rectangularEntity;
     rectangularEntity.SetTexture(new ColorTexture(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)));

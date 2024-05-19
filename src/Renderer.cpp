@@ -2,8 +2,10 @@
 
 void Renderer::Render(float deltaTime)
 {
+    _camera.Update();
     for (auto& entity : _entities)
     {
+        entity->SetCameraMatrices(_camera.GetViewMatrix(), _camera.GetProjectionMatrix());
         entity->Draw();
         entity->Update(deltaTime);
     }

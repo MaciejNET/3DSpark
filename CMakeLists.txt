@@ -41,7 +41,9 @@ add_executable(3DSpark
         include/Entities/CylinderEntity.h
         src/Entities/CylinderEntity.cpp
         include/Entities/ConeEntity.h
-        src/Entities/ConeEntity.cpp)
+        src/Entities/ConeEntity.cpp
+        include/Camera.h
+        src/Camera.cpp)
 
 if(APPLE)
     target_link_libraries(3DSpark ${GLFW_LIBRARY} ${COREFOUNDATION_LIBRARY} ${COREGRAPHICS_LIBRARY} ${IOKIT_LIBRARY} ${COCOA_LIBRARY})

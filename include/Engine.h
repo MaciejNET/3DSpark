@@ -16,6 +16,8 @@ public:
     void RemoveEntityFromRenderer(Entity* entity);
     void ClearEntitiesFromRenderer();
     void SetTargetFps(float targetFps);
+    void TurnOnCursor();
+    void TurnOffCursor();
 
 private:
     float _targetFps{};
