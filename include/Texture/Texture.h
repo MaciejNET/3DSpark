@@ -4,7 +4,8 @@
 enum class TextureType
 {
     COLOR,
-    IMAGE
+    IMAGE,
+    LIGHT
 };
 
 class Texture

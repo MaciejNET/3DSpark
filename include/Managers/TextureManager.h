@@ -6,6 +6,7 @@
 #include <GLFW/glfw3.h>
 #include "../Texture/ColorTexture.h"
 #include "../Texture/ImageTexture.h"
+#include "../Texture/LightTexture.h"
 
 class TextureManager
 {
@@ -14,6 +15,7 @@ public:
 private:
     static std::pair<GLuint, GLint> LoadColorTexture(ColorTexture* texture);
     static std::pair<GLuint, GLint> LoadImageTexture(ImageTexture* texture);
+    static std::pair<GLuint, GLint> LoadLightTexture(LightTexture* texture);
     static GLuint CompileShader(GLenum shaderType, const std::string& shaderSource);
     static std::string ReadFile(const std::string& filePath);
     static GLuint CreateShaderProgram(GLuint vertexShader, GLuint fragmentShader);

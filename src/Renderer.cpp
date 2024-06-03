@@ -3,9 +3,13 @@
 void Renderer::Render(float deltaTime)
 {
     _camera.Update();
+    _lightPoint.SetCameraMatrices(_camera.GetViewMatrix(), _camera.GetProjectionMatrix());
+    _lightPoint.Draw();
+    _lightPoint.Update(deltaTime);
     for (auto& entity : _entities)
     {
         entity->SetCameraMatrices(_camera.GetViewMatrix(), _camera.GetProjectionMatrix());
+        entity->SetLightColor(_lightPoint.GetColor());
         entity->Draw();
         entity->Update(deltaTime);
     }

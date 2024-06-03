@@ -19,6 +19,7 @@ int main()
 {
     Engine engine(1280, 960, "3DSpark");
     engine.TurnOffCursor();
+    //engine.SetTargetFps(30.0f);
 
     RectangularEntity rectangularEntity;
     rectangularEntity.SetTexture(new ColorTexture(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)));
