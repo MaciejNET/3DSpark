@@ -12,6 +12,8 @@
     const char* imageShaderFragmentPath = "../shaders/ImageFragmentShader.glsl";
     const char* lightShaderVertexPath = "../shaders/LightVertexShader.glsl";
     const char* lightShaderFragmentPath = "../shaders/LightFragmentShader.glsl";
+    const char* gradientShaderVertexPath = "../shaders/GradientVertexShader.glsl";
+    const char* gradientShaderFragmentPath = "../shaders/GradientFragmentShader.glsl";
 #elif __aarch64__ || __APPLE__
     const char* colorShaderVertexPath = "../shaders/ColorVertexShader.glsl";
     const char* colorShaderFragmentPath = "../shaders/ColorFragmentShader.glsl";
@@ -28,6 +30,8 @@
     const char* imageShaderFragmentPath = "../../../shaders/ImageFragmentShader.glsl";
     const char* lightShaderVertexPath = "../../../shaders/LightVertexShader.glsl";
     const char* lightShaderFragmentPath = "../../../shaders/LightFragmentShader.glsl";
+    const char* gradientShaderVertexPath = "../../../shaders/GradientVertexShader.glsl";
+    const char* gradientShaderFragmentPath = "../../../shaders/GradientFragmentShader.glsl";
 #endif
 
 std::pair<GLuint, std::vector<GLint>> TextureManager::LoadTexture(Texture* texture)

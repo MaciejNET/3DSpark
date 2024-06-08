@@ -19,27 +19,21 @@ int main()
 {
     Engine engine(1280, 960, "3DSpark");
     engine.TurnOffCursor();
-    //engine.SetTargetFps(30.0f);
 
     RectangularEntity rectangularEntity;
-    rectangularEntity.SetTexture(new ColorTexture(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)));
     rectangularEntity.SetTexture(new ImageTexture(imageTexturePath));
     rectangularEntity.Translate(glm::vec3(2.5f, 0.0f, 0.0f));
 
     SphereEntity sphereEntity;
     sphereEntity.SetTexture(new ColorTexture(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)));
-    sphereEntity.SetTexture(new ImageTexture(imageTexturePath));
     sphereEntity.Translate(glm::vec3(-2.5f, 0.0f, 0.0f));
 
     CylinderEntity cylinderEntity;
-    cylinderEntity.SetTexture(new ColorTexture(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)));
-    cylinderEntity.SetTexture(new ImageTexture(imageTexturePath));
     cylinderEntity.SetTexture(new GradientTexture(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), glm::vec4(1.0f, 0.0f, 1.0f, 1.0f)));
     cylinderEntity.Translate(glm::vec3(0.0f, 0.0f, 2.5f));
 
     ConeEntity coneEntity;
     coneEntity.SetTexture(new ColorTexture(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)));
-    coneEntity.SetTexture(new ImageTexture(imageTexturePath));
 
     RectangularEntity bottom;
     bottom.SetTexture(new ColorTexture(glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)));
