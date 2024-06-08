@@ -5,14 +5,18 @@
 #include "../include/Entities/ConeEntity.h"
 #include <string>
 
-const std::string imageName = "image2.jpeg";
+const std::string leaves = "leaves.jpeg";
+const std::string goldOre = "gold_ore.jpeg";
 
 #ifdef __unix__
-    const std::string imageTexturePath = "../assets/" + imageName;
+    const std::string leavesTexturePath = "../assets/" + leaves;
+    const std::string goldOreTexturePath = "../assets/" + goldOre;
 #elif __aarch64__ || __APPLE__
-    const std::string imageTexturePath = "../assets/" + imageName;
+    const std::string leavesTexturePath = "../assets/" + leaves;
+    const std::string goldOreTexturePath = "../assets/" + goldOre;
 #elif defined(_WIN32) || defined(_WIN64)
-    const std::string imageTexturePath = "../../../assets/" + imageName;
+    const std::string leavesTexturePath = "../../../assets/" + leaves;
+    const std::string goldOreTexturePath = "../../../assets/" + goldOre;
 #endif
 
 int main()
@@ -21,11 +25,11 @@ int main()
     engine.TurnOffCursor();
 
     RectangularEntity rectangularEntity;
-    rectangularEntity.SetTexture(new ImageTexture(imageTexturePath));
+    rectangularEntity.SetTexture(new ImageTexture(goldOreTexturePath));
     rectangularEntity.Translate(glm::vec3(2.5f, 0.0f, 0.0f));
 
     SphereEntity sphereEntity;
-    sphereEntity.SetTexture(new ColorTexture(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)));
+    sphereEntity.SetTexture(new ImageTexture(leavesTexturePath));
     sphereEntity.Translate(glm::vec3(-2.5f, 0.0f, 0.0f));
 
     CylinderEntity cylinderEntity;

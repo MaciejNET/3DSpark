@@ -86,4 +86,14 @@ void LightPoint::Draw()
 
 void LightPoint::Update(float deltaTime)
 {
+    float speed = 1.0f;
+    float angle = speed * deltaTime;
+
+    Rotate(glm::vec3(0.0f, 1.0f, 0.0f), angle);
+
+    float radius = 7.0f;
+    float x = radius * cos(glfwGetTime());
+    float z = radius * sin(glfwGetTime());
+
+    Translate(glm::vec3(x - _position.x, 0.0f, z - _position.z));
 }
