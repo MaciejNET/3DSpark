@@ -1,4 +1,3 @@
 # Simple 3D Engine
 
-## Authors:
- - Maciej Deroń
+Simple 3D Engine made ing OpenGL and C++.
