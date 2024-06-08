@@ -68,7 +68,7 @@ void LightPoint::Draw()
     GLint projLoc = glGetUniformLocation(_shaderProgram, "projection");
     glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(_projectionMatrix));
 
-    glUniform4fv(_uniformLocation, 1, &_texture->GetColor()[0]);
+    glUniform4fv(_uniformLocations[0], 1, &_texture->GetColor()[0]);
 
     GLint modelLoc = glGetUniformLocation(_shaderProgram, "model");
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(_modelMatrix));

@@ -34,6 +34,7 @@ int main()
     CylinderEntity cylinderEntity;
     cylinderEntity.SetTexture(new ColorTexture(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)));
     cylinderEntity.SetTexture(new ImageTexture(imageTexturePath));
+    cylinderEntity.SetTexture(new GradientTexture(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), glm::vec4(1.0f, 0.0f, 1.0f, 1.0f)));
     cylinderEntity.Translate(glm::vec3(0.0f, 0.0f, 2.5f));
 
     ConeEntity coneEntity;

@@ -19,6 +19,8 @@
     const char* imageShaderFragmentPath = "../shaders/ImageFragmentShader.glsl";
     const char* lightShaderVertexPath = "../shaders/LightVertexShader.glsl";
     const char* lightShaderFragmentPath = "../shaders/LightFragmentShader.glsl";
+    const char* gradientShaderVertexPath = "../shaders/GradientVertexShader.glsl";
+    const char* gradientShaderFragmentPath = "../shaders/GradientFragmentShader.glsl";
 #elif defined(_WIN32) || defined(_WIN64)
     const char* colorShaderVertexPath = "../../../shaders/ColorVertexShader.glsl";
     const char* colorShaderFragmentPath = "../../../shaders/ColorFragmentShader.glsl";
@@ -28,7 +30,7 @@
     const char* lightShaderFragmentPath = "../../../shaders/LightFragmentShader.glsl";
 #endif
 
-std::pair<GLuint, GLint> TextureManager::LoadTexture(Texture* texture)
+std::pair<GLuint, std::vector<GLint>> TextureManager::LoadTexture(Texture* texture)
 {
     switch (texture->GetType())
     {
@@ -41,12 +43,15 @@ std::pair<GLuint, GLint> TextureManager::LoadTexture(Texture* texture)
         case TextureType::LIGHT:
             return LoadLightTexture(dynamic_cast<LightTexture*>(texture));
 
+        case TextureType::GRADIENT:
+            return LoadGradientTexture(dynamic_cast<GradientTexture*>(texture));
+
         default:
-            return { -1, -1 };
+            return { -1,  std::vector<GLint>{} };
     }
 }
 
-std::pair<GLuint, GLint> TextureManager::LoadColorTexture(ColorTexture* texture)
+std::pair<GLuint, std::vector<GLint>> TextureManager::LoadColorTexture(ColorTexture* texture)
 {
     std::string vertexShaderSource = ReadFile(colorShaderVertexPath);
     std::string fragmentShaderSource = ReadFile(colorShaderFragmentPath);
@@ -58,17 +63,17 @@ std::pair<GLuint, GLint> TextureManager::LoadColorTexture(ColorTexture* texture)
 
     GLint colorLocation = glGetUniformLocation(shaderProgram, "ourColor");
 
-    return { shaderProgram, colorLocation };
+    return { shaderProgram, std::vector<GLint>{colorLocation} };
 }
 
-std::pair<GLuint, GLint> TextureManager::LoadImageTexture(ImageTexture* texture)
+std::pair<GLuint, std::vector<GLint>> TextureManager::LoadImageTexture(ImageTexture* texture)
 {
     int width, height, nrChannels;
     unsigned char* data = stbi_load(texture->GetFilePath().c_str(), &width, &height, &nrChannels, 0);
     if (!data)
     {
         std::cout << "Failed to load texture file: " << texture->GetFilePath() << std::endl;
-        return { -1, -1 };
+        return { -1, std::vector<GLint>{} };
     }
 
     GLuint textureId;
@@ -87,7 +92,7 @@ std::pair<GLuint, GLint> TextureManager::LoadImageTexture(ImageTexture* texture)
     else
     {
         std::cout << "Failed to load texture file: " << texture->GetFilePath() << std::endl;
-        return { -1, -1 };
+        return { -1, std::vector<GLint>{} };
     }
 
     glGenerateMipmap(GL_TEXTURE_2D);
@@ -105,10 +110,10 @@ std::pair<GLuint, GLint> TextureManager::LoadImageTexture(ImageTexture* texture)
 
     GLint textureLocation = glGetUniformLocation(shaderProgram, "ourTexture");
 
-    return { shaderProgram, textureLocation };
+    return { shaderProgram, std::vector<GLint> {textureLocation} };
 }
 
-std::pair<GLuint, GLint> TextureManager::LoadLightTexture(LightTexture *texture)
+std::pair<GLuint, std::vector<GLint>> TextureManager::LoadLightTexture(LightTexture *texture)
 {
     std::string vertexShaderSource = ReadFile(lightShaderVertexPath);
     std::string fragmentShaderSource = ReadFile(lightShaderFragmentPath);
@@ -120,7 +125,24 @@ std::pair<GLuint, GLint> TextureManager::LoadLightTexture(LightTexture *texture)
 
     GLint colorLocation = glGetUniformLocation(shaderProgram, "ourColor");
 
-    return { shaderProgram, colorLocation };
+    return { shaderProgram, std::vector<GLint> {colorLocation} };
+}
+
+std::pair<GLuint, std::vector<GLint>> TextureManager::LoadGradientTexture(GradientTexture *texture)
+{
+    std::string vertexShaderSource = ReadFile(gradientShaderVertexPath);
+    std::string fragmentShaderSource = ReadFile(gradientShaderFragmentPath);
+
+    GLuint vertexShader = CompileShader(GL_VERTEX_SHADER, vertexShaderSource);
+    GLuint fragmentShader = CompileShader(GL_FRAGMENT_SHADER, fragmentShaderSource);
+
+    GLuint shaderProgram = CreateShaderProgram(vertexShader, fragmentShader);
+
+    GLint color1Location = glGetUniformLocation(shaderProgram, "color1");
+    GLint color2Location = glGetUniformLocation(shaderProgram, "color2");
+
+    return { shaderProgram, std::vector<GLint> {color1Location, color2Location} };
+
 }
 
 GLuint TextureManager::CompileShader(GLenum shaderType, const std::string& shaderSource)

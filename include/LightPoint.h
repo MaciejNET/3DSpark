@@ -29,7 +29,7 @@ public:
     {
         delete _texture;
         _texture = texture;
-        std::tie(_shaderProgram, _uniformLocation) = TextureManager::LoadTexture(_texture);
+        std::tie(_shaderProgram, _uniformLocations) = TextureManager::LoadTexture(_texture);
     }
 
     void SetCameraMatrices(const glm::mat4& view, const glm::mat4& projection)
@@ -59,7 +59,7 @@ protected:
     LightTexture* _texture{};
     glm::mat4 _modelMatrix{1.0f};
     GLuint _shaderProgram{};
-    GLint _uniformLocation{};
+    std::vector<GLint> _uniformLocations{};
     glm::mat4 _viewMatrix{1.0f};
     glm::mat4 _projectionMatrix{1.0f};
 

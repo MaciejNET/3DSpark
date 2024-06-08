@@ -37,13 +37,18 @@ public:
         switch (_texture->GetType())
         {
             case TextureType::COLOR:
-                glUniform4fv(_uniformLocation, 1, &dynamic_cast<ColorTexture*>(_texture)->GetColor()[0]);
+                glUniform4fv(_uniformLocations[0], 1, &dynamic_cast<ColorTexture*>(_texture)->GetColor()[0]);
                 break;
 
             case TextureType::IMAGE:
                 glActiveTexture(GL_TEXTURE0);
                 glBindTexture(GL_TEXTURE_2D, dynamic_cast<ImageTexture*>(_texture)->GetTextureId());
-                glUniform1i(_uniformLocation, 0);
+                glUniform1i(_uniformLocations[0], 0);
+                break;
+
+            case TextureType::GRADIENT:
+                glUniform4fv(_uniformLocations[0], 1, &dynamic_cast<GradientTexture*>(_texture)->GetColor1()[0]);
+                glUniform4fv(_uniformLocations[1], 1, &dynamic_cast<GradientTexture*>(_texture)->GetColor2()[0]);
                 break;
 
             default:
@@ -69,7 +74,7 @@ public:
     {
         delete _texture;
         _texture = texture;
-        std::tie(_shaderProgram, _uniformLocation) = TextureManager::LoadTexture(_texture);
+        std::tie(_shaderProgram, _uniformLocations) = TextureManager::LoadTexture(_texture);
     };
 
     void SetCameraMatrices(const glm::mat4& view, const glm::mat4& projection)
@@ -115,7 +120,7 @@ protected:
     Texture* _texture{};
     glm::mat4 _modelMatrix{1.0f};
     GLuint _shaderProgram{};
-    GLint _uniformLocation{};
+    std::vector<GLint> _uniformLocations{};
     glm::mat4 _viewMatrix{1.0f};
     glm::mat4 _projectionMatrix{1.0f};
     glm::vec4 _lightColor{1.0f};

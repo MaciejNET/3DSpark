@@ -46,7 +46,8 @@ add_executable(3DSpark
         src/Camera.cpp
         include/Texture/LightTexture.h
         include/LightPoint.h
-        src/LightPoint.cpp)
+        src/LightPoint.cpp
+        include/Texture/GradientTexture.h)
 
 if(APPLE)
     target_link_libraries(3DSpark ${GLFW_LIBRARY} ${COREFOUNDATION_LIBRARY} ${COREGRAPHICS_LIBRARY} ${IOKIT_LIBRARY} ${COCOA_LIBRARY})
