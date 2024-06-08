@@ -9,7 +9,9 @@ void Renderer::Render(float deltaTime)
     for (auto& entity : _entities)
     {
         entity->SetCameraMatrices(_camera.GetViewMatrix(), _camera.GetProjectionMatrix());
+        entity->SetCameraPosition(_camera.GetPosition());
         entity->SetLightColor(_lightPoint.GetColor());
+        entity->SetLightPosition(_lightPoint.GetPosition());
         entity->Draw();
         entity->Update(deltaTime);
     }

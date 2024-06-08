@@ -52,6 +52,12 @@ public:
 
         GLint lightColorLocation = glGetUniformLocation(_shaderProgram, "lightColor");
         glUniform4fv(lightColorLocation, 1, glm::value_ptr(_lightColor));
+
+        GLint lightPositionLocation = glGetUniformLocation(_shaderProgram, "lightPos");
+        glUniform3fv(lightPositionLocation, 1, glm::value_ptr(_lightPosition));
+
+        GLint cameraPositionLocation = glGetUniformLocation(_shaderProgram, "cameraPos");
+        glUniform3fv(cameraPositionLocation, 1, glm::value_ptr(_cameraPosition));
     }
     virtual void Update(float deltaTime) = 0;
 
@@ -75,6 +81,16 @@ public:
     void SetLightColor(const glm::vec4& color)
     {
         _lightColor = color;
+    }
+
+    void SetLightPosition(const glm::vec3& position)
+    {
+        _lightPosition = position;
+    }
+
+    void SetCameraPosition(const glm::vec3& position)
+    {
+        _cameraPosition = position;
     }
 
     void Translate(const glm::vec3& translation) { _position += translation; UpdateModelMatrix(); };
@@ -103,6 +119,8 @@ protected:
     glm::mat4 _viewMatrix{1.0f};
     glm::mat4 _projectionMatrix{1.0f};
     glm::vec4 _lightColor{1.0f};
+    glm::vec3 _lightPosition{0.0f};
+    glm::vec3 _cameraPosition{0.0f};
 };
 
 #endif //INC_3DSPARK_ENTITY_H

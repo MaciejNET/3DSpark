@@ -11,6 +11,7 @@ public:
     void Rotate(float x, float y);
     glm::mat4 GetViewMatrix();
     glm::mat4 GetProjectionMatrix() const;
+    glm::vec3 GetPosition() const;
     void SetPosition(glm::vec3 position);
     void SetOrientation(glm::vec3 orientation);
     void SetUp(glm::vec3 up);

@@ -73,6 +73,11 @@ glm::mat4 Camera::GetProjectionMatrix() const
     return glm::perspective(glm::radians(45.0f), (float)_width / (float)_height, 0.1f, 100.0f);
 }
 
+glm::vec3 Camera::GetPosition() const
+{
+    return _position;
+}
+
 void Camera::SetPosition(glm::vec3 position)
 {
     _position = position;
