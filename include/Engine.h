@@ -19,6 +19,9 @@ public:
     void TurnOnCursor();
     void TurnOffCursor();
 
+    Camera* Camera() const { return _renderer->GetCamera(); };
+    LightPoint* LightPoint() const { return _renderer->GetLightPoint(); };
+
 private:
     float _targetFps{};
     Renderer* _renderer;

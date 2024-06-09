@@ -8,6 +8,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <utility>
 
 class LightPoint
 {
@@ -41,6 +42,11 @@ public:
     void Rotate(const glm::vec3& axis, float angle) { _rotation += glm::degrees(axis * angle); UpdateModelMatrix(); };
     void Scale(const glm::vec3& scale) { _scale *= scale; UpdateModelMatrix(); };
 
+    void SetUpdateFunction(std::function<void(LightPoint&, float deltaTime)> function)
+    {
+        updateFunction = std::move(function);
+    }
+
 protected:
     void UpdateModelMatrix()
     {
@@ -62,7 +68,7 @@ protected:
     std::vector<GLint> _uniformLocations{};
     glm::mat4 _viewMatrix{1.0f};
     glm::mat4 _projectionMatrix{1.0f};
-
+    std::function<void(LightPoint&, float deltaTime)> updateFunction;
 };
 
 #endif //INC_3DSPARK_LIGHTPOINT_H

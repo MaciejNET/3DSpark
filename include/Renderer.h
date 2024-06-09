@@ -10,10 +10,9 @@
 class Renderer
 {
 public:
-    Renderer() : _camera(Camera(WindowManager::GetWidth(), WindowManager::GetHeight())), _lightPoint()
+    Renderer() : _camera(new Camera(WindowManager::GetWidth(), WindowManager::GetHeight())),
+        _lightPoint(new LightPoint())
     {
-        _lightPoint.Translate(glm::vec3(7.0f, 7.0f, 7.0f));
-        _lightPoint.Scale(glm::vec3(2.0f, 2.0f, 2.0f));
     }
 
     ~Renderer() = default;
@@ -23,10 +22,13 @@ public:
     void RemoveEntity(Entity* entity);
     void ClearEntities();
 
+    Camera* GetCamera() const { return _camera; };
+    LightPoint* GetLightPoint() const { return _lightPoint; };
+
 private:
     std::vector<Entity*> _entities;
-    Camera _camera;
-    LightPoint _lightPoint;
+    Camera* _camera;
+    LightPoint* _lightPoint;
 };
 
 #endif //INC_3DSPARK_RENDERER_H

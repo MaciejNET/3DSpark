@@ -65,6 +65,19 @@ int main()
         entity.Rotate(glm::vec3(0.0f, 0.1f, 0.0f), rotationSpeed * deltaTime);
     };
 
+    std::function<void(LightPoint&, float)> lightPointMovement = [](LightPoint& lightPoint, float deltaTime) {
+        float speed = 1.0f;
+        float angle = speed * deltaTime;
+
+        lightPoint.Rotate(glm::vec3(0.0f, 1.0f, 0.0f), angle);
+
+        float radius = 7.0f;
+        float x = radius * cos(glfwGetTime());
+        float z = radius * sin(glfwGetTime());
+
+        lightPoint.Translate(glm::vec3(x - lightPoint.GetPosition().x, 0.0f, z - lightPoint.GetPosition().z));
+    };
+
     RectangularEntity rectangularEntity;
     rectangularEntity.SetTexture(new ImageTexture(goldOreTexturePath));
     rectangularEntity.Translate(glm::vec3(2.5f, 0.0f, 0.0f));
@@ -88,6 +101,12 @@ int main()
     bottom.SetTexture(new ColorTexture(glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)));
     bottom.Translate(glm::vec3(0.0f, -1.0f, 0.0f));
     bottom.Scale(glm::vec3(15.0f, 0.1f, 15.0f));
+
+    engine.LightPoint()->SetUpdateFunction(lightPointMovement);
+    engine.LightPoint()->Translate(glm::vec3(7.0f, 7.0f, 7.0f));
+    engine.LightPoint()->Scale(glm::vec3(2.0f, 2.0f, 2.0f));
+
+    engine.Camera()->SetPosition(glm::vec3(1.0f, 1.0f, 10.0f));
 
     engine.AddEntityToRenderer(&rectangularEntity);
     engine.AddEntityToRenderer(&sphereEntity);

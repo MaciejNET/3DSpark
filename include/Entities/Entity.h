@@ -111,7 +111,10 @@ public:
         _cameraPosition = position;
     }
 
-    void SetUpdateFunction(std::function<void(Entity&, float deltaTime)> function) { updateFunction = function; }
+    void SetUpdateFunction(std::function<void(Entity&, float deltaTime)> function)
+    {
+        updateFunction = std::move(function);
+    }
 
     void SetLightingEnabled(bool isEnabled) { _isLightingEnabled = isEnabled; };
     void SetShadingEnabled(bool isEnabled) { _isShadingEnabled = isEnabled; };
