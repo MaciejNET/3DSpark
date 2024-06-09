@@ -24,29 +24,65 @@ int main()
     Engine engine(1280, 960, "3DSpark");
     engine.TurnOffCursor();
 
-    std::function<void(Entity&, float)> rotateEntity = [](Entity& entity, float deltaTime) {
+    std::function<void(Entity&, float)> rotateEntityAroundY = [](Entity& entity, float deltaTime) {
         float rotationSpeed = 10.0f;
+        entity.Rotate(glm::vec3(0.0f, 0.1f, 0.0f), rotationSpeed * deltaTime);
+    };
+
+    std::function<void(Entity&, float)> rotateEntityAroundZ = [](Entity& entity, float deltaTime) {
+        float rotationSpeed = 10.0f;
+        entity.Rotate(glm::vec3(0.0f, 0.0f, 0.1f), rotationSpeed * deltaTime);
+    };
+
+    std::function<void(Entity&, float)> rotateEntityAroundYAndScale = [scaleUp = true](Entity& entity, float deltaTime) mutable {
+        float rotationSpeed = 10.0f;
+        float scaleSpeed = 0.005f;
+        glm::vec3 currentScale = entity.GetScale();
+
+        if (scaleUp)
+        {
+            if (currentScale.x < 1.5f)
+            {
+                entity.Scale(glm::vec3(1.0f + scaleSpeed, 1.0f + scaleSpeed, 1.0f + scaleSpeed));
+            }
+            else
+            {
+                scaleUp = false;
+            }
+        }
+        else
+        {
+            if (currentScale.x > 0.5f)
+            {
+                entity.Scale(glm::vec3(1.0f - scaleSpeed, 1.0f - scaleSpeed, 1.0f - scaleSpeed));
+            }
+            else
+            {
+                scaleUp = true;
+            }
+        }
+
         entity.Rotate(glm::vec3(0.0f, 0.1f, 0.0f), rotationSpeed * deltaTime);
     };
 
     RectangularEntity rectangularEntity;
     rectangularEntity.SetTexture(new ImageTexture(goldOreTexturePath));
     rectangularEntity.Translate(glm::vec3(2.5f, 0.0f, 0.0f));
-    rectangularEntity.SetUpdateFunction(rotateEntity);
+    rectangularEntity.SetUpdateFunction(rotateEntityAroundY);
 
     SphereEntity sphereEntity;
     sphereEntity.SetTexture(new ImageTexture(leavesTexturePath));
     sphereEntity.Translate(glm::vec3(-2.5f, 0.0f, 0.0f));
-    sphereEntity.SetUpdateFunction(rotateEntity);
+    sphereEntity.SetUpdateFunction(rotateEntityAroundYAndScale);
 
     CylinderEntity cylinderEntity;
     cylinderEntity.SetTexture(new GradientTexture(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), glm::vec4(1.0f, 0.0f, 1.0f, 1.0f)));
     cylinderEntity.Translate(glm::vec3(0.0f, 0.0f, 2.5f));
-    cylinderEntity.SetUpdateFunction(rotateEntity);
+    cylinderEntity.SetUpdateFunction(rotateEntityAroundZ);
 
     ConeEntity coneEntity;
     coneEntity.SetTexture(new ColorTexture(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)));
-    coneEntity.SetUpdateFunction(rotateEntity);
+    coneEntity.SetUpdateFunction(rotateEntityAroundZ);
 
     RectangularEntity bottom;
     bottom.SetTexture(new ColorTexture(glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)));
