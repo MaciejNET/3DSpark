@@ -24,20 +24,29 @@ int main()
     Engine engine(1280, 960, "3DSpark");
     engine.TurnOffCursor();
 
+    std::function<void(Entity&, float)> rotateEntity = [](Entity& entity, float deltaTime) {
+        float rotationSpeed = 10.0f;
+        entity.Rotate(glm::vec3(0.0f, 0.1f, 0.0f), rotationSpeed * deltaTime);
+    };
+
     RectangularEntity rectangularEntity;
     rectangularEntity.SetTexture(new ImageTexture(goldOreTexturePath));
     rectangularEntity.Translate(glm::vec3(2.5f, 0.0f, 0.0f));
+    rectangularEntity.SetUpdateFunction(rotateEntity);
 
     SphereEntity sphereEntity;
     sphereEntity.SetTexture(new ImageTexture(leavesTexturePath));
     sphereEntity.Translate(glm::vec3(-2.5f, 0.0f, 0.0f));
+    sphereEntity.SetUpdateFunction(rotateEntity);
 
     CylinderEntity cylinderEntity;
     cylinderEntity.SetTexture(new GradientTexture(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), glm::vec4(1.0f, 0.0f, 1.0f, 1.0f)));
     cylinderEntity.Translate(glm::vec3(0.0f, 0.0f, 2.5f));
+    cylinderEntity.SetUpdateFunction(rotateEntity);
 
     ConeEntity coneEntity;
     coneEntity.SetTexture(new ColorTexture(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)));
+    coneEntity.SetUpdateFunction(rotateEntity);
 
     RectangularEntity bottom;
     bottom.SetTexture(new ColorTexture(glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)));

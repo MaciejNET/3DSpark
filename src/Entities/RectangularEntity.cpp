@@ -107,4 +107,5 @@ void RectangularEntity::Draw()
 
 void RectangularEntity::Update(float deltaTime)
 {
+    Entity::Update(deltaTime);
 }

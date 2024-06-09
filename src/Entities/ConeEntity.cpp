@@ -94,4 +94,5 @@ void ConeEntity::Draw()
 
 void ConeEntity::Update(float deltaTime)
 {
+    Entity::Update(deltaTime);
 }

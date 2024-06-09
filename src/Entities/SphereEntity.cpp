@@ -86,4 +86,5 @@ void SphereEntity::Draw()
 
 void SphereEntity::Update(float deltaTime)
 {
+    Entity::Update(deltaTime);
 }

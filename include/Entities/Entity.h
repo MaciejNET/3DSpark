@@ -70,7 +70,14 @@ public:
         GLint isShadingEnabledLocation = glGetUniformLocation(_shaderProgram, "isShadingEnabled");
         glUniform1i(isShadingEnabledLocation, _isShadingEnabled);
     }
-    virtual void Update(float deltaTime) = 0;
+
+    virtual void Update(float deltaTime)
+    {
+        if (updateFunction)
+        {
+            updateFunction(*this, deltaTime);
+        }
+    };
 
     glm::vec3 GetPosition() const { return _position; };
     glm::vec3 GetRotation() const { return _rotation; };
@@ -103,6 +110,8 @@ public:
     {
         _cameraPosition = position;
     }
+
+    void SetUpdateFunction(std::function<void(Entity&, float deltaTime)> function) { updateFunction = function; }
 
     void SetLightingEnabled(bool isEnabled) { _isLightingEnabled = isEnabled; };
     void SetShadingEnabled(bool isEnabled) { _isShadingEnabled = isEnabled; };
@@ -137,6 +146,7 @@ protected:
     glm::vec3 _cameraPosition{0.0f};
     bool _isLightingEnabled{true};
     bool _isShadingEnabled{true};
+    std::function<void(Entity&, float deltaTime)> updateFunction;
 };
 
 #endif //INC_3DSPARK_ENTITY_H

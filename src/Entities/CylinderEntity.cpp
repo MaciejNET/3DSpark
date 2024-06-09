@@ -141,4 +141,5 @@ void CylinderEntity::Draw()
 
 void CylinderEntity::Update(float deltaTime)
 {
+    Entity::Update(deltaTime);
 }
