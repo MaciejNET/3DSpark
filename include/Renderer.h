@@ -18,7 +18,7 @@ public:
 
     ~Renderer() = default;
 
-    void Render(float deltaTime);
+    void Render(float deltaTime, bool isLightingEnabled, bool isShadingEnabled);
     void AddEntity(Entity* entity);
     void RemoveEntity(Entity* entity);
     void ClearEntities();

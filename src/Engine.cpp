@@ -45,8 +45,18 @@ void Engine::Run()
             WindowManager::ToggleWindowed();
         }
 
+        if (InputManager::KeyPressed(GLFW_KEY_O))
+        {
+            _isLightingEnabled = !_isLightingEnabled;
+        }
+
+        if (InputManager::KeyPressed(GLFW_KEY_P))
+        {
+            _isShadingEnabled = !_isShadingEnabled;
+        }
+
         WindowManager::ClearScreen();
-        _renderer->Render(_deltaTime);
+        _renderer->Render(_deltaTime, _isLightingEnabled, _isShadingEnabled);
         EventBus::DispatchEvents();
 
         glfwSwapBuffers(WindowManager::GetWindow());

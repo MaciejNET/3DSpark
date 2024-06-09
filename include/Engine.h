@@ -25,6 +25,8 @@ private:
     float _deltaTime{};
     float _lastFrame{};
     float _fps{};
+    bool _isLightingEnabled{true};
+    bool _isShadingEnabled{true};
 };
 
 #endif //INC_3DSPARK_ENGINE_H

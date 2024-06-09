@@ -6,12 +6,26 @@ uniform sampler2D ourTexture;
 uniform vec4 lightColor;
 uniform vec3 lightPos;
 uniform vec3 cameraPos;
+uniform bool isLightingEnabled;
+uniform bool isShadingEnabled;
 
 in vec3 Normal;
 in vec3 currentPos;
 
 void main()
 {
+    if (!isLightingEnabled)
+    {
+        FragColor = texture(ourTexture, TexCoords);
+        return;
+    }
+
+    if (!isShadingEnabled)
+    {
+        FragColor = texture(ourTexture, TexCoords) * lightColor;
+        return;
+    }
+
     float ambient = 0.2f;
 
     vec3 norm = normalize(Normal);

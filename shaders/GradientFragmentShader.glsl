@@ -5,6 +5,9 @@ uniform vec4 color2;
 uniform vec4 lightColor;
 uniform vec3 lightPos;
 uniform vec3 cameraPos;
+uniform bool isLightingEnabled;
+uniform bool isShadingEnabled;
+
 out vec4 FragColor;
 
 in vec3 Normal;
@@ -13,6 +16,18 @@ in float height;
 
 void main()
 {
+    if (!isLightingEnabled)
+    {
+        FragColor = mix(color1, color2, height);
+        return;
+    }
+
+    if (!isShadingEnabled)
+    {
+        FragColor = mix(color1, color2, height) * lightColor;
+        return;
+    }
+
     float ambient = 0.2f;
 
     vec3 norm = normalize(Normal);
