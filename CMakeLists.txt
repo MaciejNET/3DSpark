@@ -29,25 +29,20 @@ add_executable(3DSpark
         src/Renderer.cpp
         include/Engine.h
         src/Engine.cpp
-        include/Entities/RectangularEntity.h
-        src/Entities/RectangularEntity.cpp
         include/Texture/Texture.h
         include/Texture/ColorTexture.h
         include/Managers/TextureManager.h
         src/Managers/TextureManager.cpp
         include/Texture/ImageTexture.h
-        include/Entities/SphereEntity.h
-        src/Entities/SphereEntity.cpp
-        include/Entities/CylinderEntity.h
-        src/Entities/CylinderEntity.cpp
-        include/Entities/ConeEntity.h
-        src/Entities/ConeEntity.cpp
         include/Camera.h
         src/Camera.cpp
         include/Texture/LightTexture.h
         include/LightPoint.h
         src/LightPoint.cpp
-        include/Texture/GradientTexture.h)
+        include/Texture/GradientTexture.h
+        src/Entities/Entity.cpp
+        include/Entities/BaseShapes.h
+        src/Entities/BaseShapes.cpp)
 
 if(APPLE)
     target_link_libraries(3DSpark ${GLFW_LIBRARY} ${COREFOUNDATION_LIBRARY} ${COREGRAPHICS_LIBRARY} ${IOKIT_LIBRARY} ${COCOA_LIBRARY})

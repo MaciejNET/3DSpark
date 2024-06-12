@@ -1,8 +1,5 @@
 #include "../include/Engine.h"
-#include "../include/Entities/RectangularEntity.h"
-#include "../include/Entities/SphereEntity.h"
-#include "../include/Entities/CylinderEntity.h"
-#include "../include/Entities/ConeEntity.h"
+#include "../include/Entities/Entity.h"
 #include <string>
 
 const std::string leaves = "leaves.jpeg";
@@ -78,26 +75,26 @@ int main()
         lightPoint.Translate(glm::vec3(x - lightPoint.GetPosition().x, 0.0f, z - lightPoint.GetPosition().z));
     };
 
-    RectangularEntity rectangularEntity;
+    Entity rectangularEntity(BaseShapeType::QUAD);
     rectangularEntity.SetTexture(new ImageTexture(goldOreTexturePath));
     rectangularEntity.Translate(glm::vec3(2.5f, 0.0f, 0.0f));
     rectangularEntity.SetUpdateFunction(rotateEntityAroundY);
 
-    SphereEntity sphereEntity;
+    Entity sphereEntity(BaseShapeType::SPHERE);
     sphereEntity.SetTexture(new ImageTexture(leavesTexturePath));
     sphereEntity.Translate(glm::vec3(-2.5f, 0.0f, 0.0f));
     sphereEntity.SetUpdateFunction(rotateEntityAroundYAndScale);
 
-    CylinderEntity cylinderEntity;
+    Entity cylinderEntity(BaseShapeType::CYLINDER);
     cylinderEntity.SetTexture(new GradientTexture(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), glm::vec4(1.0f, 0.0f, 1.0f, 1.0f)));
     cylinderEntity.Translate(glm::vec3(0.0f, 0.0f, 2.5f));
     cylinderEntity.SetUpdateFunction(rotateEntityAroundZ);
 
-    ConeEntity coneEntity;
+    Entity coneEntity(BaseShapeType::CONE);
     coneEntity.SetTexture(new ColorTexture(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)));
     coneEntity.SetUpdateFunction(rotateEntityAroundZ);
 
-    RectangularEntity bottom;
+    Entity bottom(BaseShapeType::QUAD);
     bottom.SetTexture(new ColorTexture(glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)));
     bottom.Translate(glm::vec3(0.0f, -1.0f, 0.0f));
     bottom.Scale(glm::vec3(15.0f, 0.1f, 15.0f));
