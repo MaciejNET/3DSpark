@@ -76,32 +76,34 @@ int main()
     };
 
     Entity rectangularEntity(BaseShapeType::QUAD);
-    rectangularEntity.SetTexture(new ImageTexture(goldOreTexturePath));
+    rectangularEntity.SetTexture(goldOreTexturePath);
     rectangularEntity.Translate(glm::vec3(2.5f, 0.0f, 0.0f));
     rectangularEntity.SetUpdateFunction(rotateEntityAroundY);
 
     Entity sphereEntity(BaseShapeType::SPHERE);
-    sphereEntity.SetTexture(new ImageTexture(leavesTexturePath));
+    sphereEntity.SetTexture(leavesTexturePath);
     sphereEntity.Translate(glm::vec3(-2.5f, 0.0f, 0.0f));
     sphereEntity.SetUpdateFunction(rotateEntityAroundYAndScale);
 
     Entity cylinderEntity(BaseShapeType::CYLINDER);
-    cylinderEntity.SetTexture(new GradientTexture(glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), glm::vec4(1.0f, 0.0f, 1.0f, 1.0f)));
+    cylinderEntity.SetGradient(BaseColor::Blue(), BaseColor::Magenta());
     cylinderEntity.Translate(glm::vec3(0.0f, 0.0f, 2.5f));
     cylinderEntity.SetUpdateFunction(rotateEntityAroundZ);
 
     Entity coneEntity(BaseShapeType::CONE);
-    coneEntity.SetTexture(new ColorTexture(glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)));
+    coneEntity.SetColor(BaseColor::Green());
     coneEntity.SetUpdateFunction(rotateEntityAroundZ);
 
     Entity bottom(BaseShapeType::QUAD);
-    bottom.SetTexture(new ColorTexture(glm::vec4(0.5f, 0.5f, 0.5f, 1.0f)));
+    bottom.SetColor(BaseColor::LightGray());
     bottom.Translate(glm::vec3(0.0f, -1.0f, 0.0f));
     bottom.Scale(glm::vec3(15.0f, 0.1f, 15.0f));
 
     engine.LightPoint()->SetUpdateFunction(lightPointMovement);
     engine.LightPoint()->Translate(glm::vec3(7.0f, 7.0f, 7.0f));
     engine.LightPoint()->Scale(glm::vec3(2.0f, 2.0f, 2.0f));
+    //engine.LightPoint()->SetColor(BaseColor::Pink());
+    //engine.LightPoint()->SetColor(BaseColor::Red());
 
     engine.Camera()->SetPosition(glm::vec3(1.0f, 1.0f, 10.0f));
 

@@ -11,6 +11,7 @@
 #include "../Texture/ColorTexture.h"
 #include "../Managers/TextureManager.h"
 #include "BaseShapes.h"
+#include "Color.h"
 
 class Entity
 {
@@ -26,7 +27,7 @@ public:
     glm::vec3 GetRotation() const { return _rotation; };
     glm::vec3 GetScale() const { return _scale; };
 
-    void SetTexture(Texture* texture);
+
     void SetCameraMatrices(const glm::mat4& view, const glm::mat4& projection);
     void SetLightColor(const glm::vec4& color);
     void SetLightPosition(const glm::vec3& position);
@@ -35,12 +36,17 @@ public:
     void SetLightingEnabled(bool isEnabled);
     void SetShadingEnabled(bool isEnabled);
 
+    void SetColor(const Color& color);
+    void SetTexture(const std::string& texturePath);
+    void SetGradient(const Color& startColor, const Color& endColor);
+
     void Translate(const glm::vec3& translation);
     void Rotate(const glm::vec3& axis, float angle);
     void Scale(const glm::vec3& scale);
 
 protected:
     void UpdateModelMatrix();
+    void SetTexture(Texture* texture);
 
 protected:
     glm::vec3 _position{};

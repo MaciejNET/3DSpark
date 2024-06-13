@@ -117,6 +117,25 @@ void Entity::Update(float deltaTime)
     }
 }
 
+void Entity::SetColor(const Color &color)
+{
+    auto texture = new ColorTexture(glm::vec4(color.r, color.g, color.b, color.a));
+    SetTexture(texture);
+}
+
+void Entity::SetTexture(const std::string &texturePath)
+{
+    auto texture = new ImageTexture(texturePath);
+    SetTexture(texture);
+}
+
+void Entity::SetGradient(const Color &startColor, const Color &endColor)
+{
+    auto texture = new GradientTexture(glm::vec4(startColor.r, startColor.g, startColor.b, startColor.a),
+                                        glm::vec4(endColor.r, endColor.g, endColor.b, endColor.a));
+    SetTexture(texture);
+}
+
 void Entity::SetTexture(Texture* texture)
 {
     delete _texture;

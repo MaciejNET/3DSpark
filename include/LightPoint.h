@@ -3,6 +3,7 @@
 
 #include "Texture/LightTexture.h"
 #include "Managers/TextureManager.h"
+#include "Entities/Color.h"
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -27,11 +28,11 @@ public:
     glm::vec3 GetRotation() const { return _rotation; };
     glm::vec3 GetScale() const { return _scale; };
     glm::vec4 GetColor() const { return _texture->GetColor(); };
-    void SetTexture(LightTexture* texture)
+
+    void SetColor(const Color& color)
     {
-        delete _texture;
-        _texture = texture;
-        std::tie(_shaderProgram, _uniformLocations) = TextureManager::LoadTexture(_texture);
+        auto texture = new LightTexture(glm::vec4(color.r, color.g, color.b, color.a));
+        SetTexture(texture);
     }
 
     void SetCameraMatrices(const glm::mat4& view, const glm::mat4& projection)
@@ -57,6 +58,13 @@ protected:
         _modelMatrix = glm::rotate(_modelMatrix, glm::radians(_rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
         _modelMatrix = glm::rotate(_modelMatrix, glm::radians(_rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
         _modelMatrix = glm::scale(_modelMatrix, _scale);
+    }
+
+    void SetTexture(LightTexture* texture)
+    {
+        delete _texture;
+        _texture = texture;
+        std::tie(_shaderProgram, _uniformLocations) = TextureManager::LoadTexture(_texture);
     }
 
 protected:

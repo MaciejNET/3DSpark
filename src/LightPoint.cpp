@@ -6,8 +6,8 @@ void LightPoint::Draw()
     const int rings = 18;
     const float radius = 0.5f;
 
-    std::vector<GLfloat> vertices;
-    std::vector<GLuint> indices;
+    std::vector<float> vertices;
+    std::vector<unsigned int> indices;
 
     for (int i = 0; i <= rings; ++i)
     {
