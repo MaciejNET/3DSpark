@@ -7,6 +7,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+/**
+ * @brief Tekstura obrazka
+ */
 class ImageTexture : public Texture
 {
 public:

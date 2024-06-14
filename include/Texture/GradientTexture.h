@@ -4,6 +4,9 @@
 #include "Texture.h"
 #include "glm/vec4.hpp"
 
+/**
+ * @brief Tekstura gradientu
+ */
 class GradientTexture : public Texture
 {
 public:

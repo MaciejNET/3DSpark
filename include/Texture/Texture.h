@@ -9,6 +9,9 @@ enum class TextureType
     GRADIENT
 };
 
+/**
+ * @brief Klasa bazowa dla wszystkich tekstur
+ */
 class Texture
 {
 public:

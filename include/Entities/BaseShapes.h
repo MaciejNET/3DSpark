@@ -8,6 +8,9 @@
     #define M_PI 3.14
 #endif
 
+/**
+ * Typy kształtów
+ */
 enum class BaseShapeType
 {
     QUAD,
@@ -16,6 +19,9 @@ enum class BaseShapeType
     CONE
 };
 
+/**
+ * Klasa zwraca wierzchołki i indeksy dla podstawowych kształtów
+ */
 class BaseShapes
 {
 public:

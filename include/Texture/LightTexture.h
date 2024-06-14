@@ -5,6 +5,9 @@
 #include "glm/vec4.hpp"
 #include "../Managers/WindowManager.h"
 
+/**
+ * @brief Tekstura światła
+ */
 class LightTexture : public Texture
 {
 public:

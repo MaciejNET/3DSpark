@@ -4,6 +4,9 @@
 #include "Texture.h"
 #include <glm/glm.hpp>
 
+/**
+ * @brief Tekstura jednolitego koloru
+ */
 class ColorTexture : public Texture
 {
 public:

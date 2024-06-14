@@ -1,6 +1,9 @@
 #ifndef INC_3DSPARK_COLOR_H
 #define INC_3DSPARK_COLOR_H
 
+/**
+ * Klasa reprezentująca kolor
+ */
 struct Color
 {
     float r;
@@ -16,6 +19,9 @@ struct Color
     }
 };
 
+/**
+ * Klasa zwracająca podstawowe kolory
+ */
 class BaseColor
 {
 public:
