@@ -4,7 +4,8 @@ void Renderer::Render(float deltaTime, bool isLightingEnabled, bool isShadingEna
 {
     _camera->Update();
     _lightPoint->SetCameraMatrices(_camera->GetViewMatrix(), _camera->GetProjectionMatrix());
-    _lightPoint->Draw();
+    if (isLightingEnabled)
+        _lightPoint->Draw();
     _lightPoint->Update(deltaTime);
     for (auto& entity : _entities)
     {
