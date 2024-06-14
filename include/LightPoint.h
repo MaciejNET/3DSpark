@@ -11,6 +11,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <utility>
 #include <functional>
+#include "Events/Event.h"
+#include "Events/EventBus.h"
 
 class LightPoint
 {
@@ -47,6 +49,18 @@ public:
     void SetUpdateFunction(std::function<void(LightPoint&, float deltaTime)> function)
     {
         updateFunction = std::move(function);
+    }
+
+    template<typename TEvent, typename = std::enable_if_t<std::is_base_of_v<Event, TEvent>>>
+    void Subscribe(std::function<void(TEvent&)> callback)
+    {
+        EventBus::Subscribe(callback);
+    }
+
+    template<typename TEvent, typename = std::enable_if_t<std::is_base_of_v<Event, TEvent>>>
+    void Unsubscribe()
+    {
+        EventBus::Unsubscribe<TEvent>();
     }
 
 protected:

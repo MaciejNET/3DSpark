@@ -10,7 +10,8 @@ enum class EventType
     MouseMoved,
     KeyHeld,
     KeyReleased,
-    MouseButtonPressed
+    MouseButtonPressed,
+    ObjectRotated180
 };
 
 /**

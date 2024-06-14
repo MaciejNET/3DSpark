@@ -1,5 +1,6 @@
 #include "../include/Engine.h"
 #include "../include/Entities/Entity.h"
+#include "../include/Events/ObjectRotated180Event.h"
 #include <string>
 
 const std::string leaves = "leaves.jpeg";
@@ -29,6 +30,23 @@ int main()
     std::function<void(Entity&, float)> rotateEntityAroundZ = [](Entity& entity, float deltaTime) {
         float rotationSpeed = 10.0f;
         entity.Rotate(glm::vec3(0.0f, 0.0f, 0.1f), rotationSpeed * deltaTime);
+    };
+
+    std::function<void(Entity&, float)> rotateEntityAroundZAndPublishEvent = [totalRotation = 0.0f](Entity& entity, float deltaTime) mutable {
+        float rotationSpeed = 7.5f;
+        entity.Rotate(glm::vec3(0.0f, 0.0f, 0.1f), rotationSpeed * deltaTime);
+
+        glm::vec3 currentRotation = entity.GetRotation();
+
+        while (currentRotation.z >= 360.0f)
+        {
+            currentRotation.z -= 360.0f;
+        }
+
+        if (currentRotation.z >= 180.0f)
+        {
+            EventBus::Publish(std::make_shared<ObjectRotated180Event>());
+        }
     };
 
     std::function<void(Entity&, float)> rotateEntityAroundYAndScale = [scaleUp = true](Entity& entity, float deltaTime) mutable {
@@ -88,7 +106,7 @@ int main()
     Entity cylinderEntity(BaseShapeType::CYLINDER);
     cylinderEntity.SetGradient(BaseColor::Blue(), BaseColor::Magenta());
     cylinderEntity.Translate(glm::vec3(0.0f, 0.0f, 2.5f));
-    cylinderEntity.SetUpdateFunction(rotateEntityAroundZ);
+    cylinderEntity.SetUpdateFunction(rotateEntityAroundZAndPublishEvent);
 
     Entity coneEntity(BaseShapeType::CONE);
     coneEntity.SetColor(BaseColor::Green());
@@ -102,6 +120,16 @@ int main()
     engine.LightPoint()->SetUpdateFunction(lightPointMovement);
     engine.LightPoint()->Translate(glm::vec3(7.0f, 7.0f, 7.0f));
     engine.LightPoint()->Scale(glm::vec3(2.0f, 2.0f, 2.0f));
+    engine.LightPoint()->Subscribe<ObjectRotated180Event>([&engine](ObjectRotated180Event& event) {
+       if (engine.LightPoint()->GetColor() != BaseColor::Red().ToVec4())
+       {
+           engine.LightPoint()->SetColor(BaseColor::Red());
+       }
+       else
+       {
+           engine.LightPoint()->SetColor(BaseColor::White());
+       }
+    });
     //engine.LightPoint()->SetColor(BaseColor::Pink());
     //engine.LightPoint()->SetColor(BaseColor::Red());
 

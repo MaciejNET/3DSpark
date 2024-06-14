@@ -43,7 +43,8 @@ add_executable(3DSpark
         src/Entities/Entity.cpp
         include/Entities/BaseShapes.h
         src/Entities/BaseShapes.cpp
-        include/Entities/Color.h)
+        include/Entities/Color.h
+        include/Events/ObjectRotated180Event.h)
 
 if(APPLE)
     target_link_libraries(3DSpark ${GLFW_LIBRARY} ${COREFOUNDATION_LIBRARY} ${COREGRAPHICS_LIBRARY} ${IOKIT_LIBRARY} ${COCOA_LIBRARY})

@@ -9,6 +9,11 @@ struct Color
     float a;
 
     Color(float r, float g, float b, float a) : r(r), g(g), b(b), a(a) {}
+
+    glm::vec4 ToVec4() const
+    {
+        return {r, g, b, a};
+    }
 };
 
 class BaseColor

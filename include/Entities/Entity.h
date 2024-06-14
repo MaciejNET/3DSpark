@@ -12,6 +12,8 @@
 #include "../Managers/TextureManager.h"
 #include "BaseShapes.h"
 #include "Color.h"
+#include "Events/Event.h"
+#include "Events/EventBus.h"
 
 class Entity
 {
@@ -43,6 +45,18 @@ public:
     void Translate(const glm::vec3& translation);
     void Rotate(const glm::vec3& axis, float angle);
     void Scale(const glm::vec3& scale);
+
+    template<typename TEvent, typename = std::enable_if_t<std::is_base_of_v<Event, TEvent>>>
+    void Subscribe(std::function<void(TEvent&)> callback)
+    {
+        EventBus::Subscribe(callback);
+    }
+
+    template<typename TEvent, typename = std::enable_if_t<std::is_base_of_v<Event, TEvent>>>
+    void Unsubscribe()
+    {
+        EventBus::Unsubscribe<TEvent>();
+    }
 
 protected:
     void UpdateModelMatrix();
